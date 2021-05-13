@@ -1,2 +1,2 @@
 #!/bin/bash
-python server.py
+python -u server.py

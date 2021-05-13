@@ -10,12 +10,15 @@ from . import utils
 @wsutils.webSocketMethod
 def subscribeAddressBalance(ws, id, params):
 
+    print("New subscription to addressBalance")
     requestSchema = utils.getWSRequestMethodSchema(SUBSCRIBE_ADDRESS_BALANCE)
 
     err = rpcutils.validateJSONRPCSchema(params, requestSchema)
     if err is not None:
         raise rpcerrorhandler.BadRequestError(err.message)
 
+    print("hasClients", SubcriptionsHandler.addressHasClients(params[ADDRESS]))
+    print("Address", params[ADDRESS])
     if not SubcriptionsHandler.addressHasClients(params[ADDRESS]):
 
         response = apirpc.notify(
@@ -25,6 +28,8 @@ def subscribeAddressBalance(ws, id, params):
                 CALLBACK_ENDPOINT: BITCOIN_CALLBACK_ENDPOINT
             }
         )
+
+        print("Response subscription", response)
 
         if not response[SUCCESS]:
             raise rpcerrorhandler.BadRequestError("Can not subscribe " + params[ADDRESS] + " to node")

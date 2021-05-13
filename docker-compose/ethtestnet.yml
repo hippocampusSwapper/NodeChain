@@ -1,8 +1,17 @@
 version: "3"
 services:
+  # ethereumgo:
+  #   image: ethereum/client-go:latest
+  #   command: --http --http.addr=ethereumgo --ropsten --cache=1024 --http.port=8545 --syncmode=full --gcmode=archive --ws --ws.addr=ethereumgo --ws.port=8546 --ws.origins=connector
+  #   volumes:
+  #     - ${BLOCKCHAIN_PATH}/ethereumgo:/root/.ethereum
+
   ethereumgo:
-    image: ethereum/client-go:latest
-    command: --http --http.addr=ethereumgo --ropsten --cache=1024 --http.port=8545 --syncmode=full --gcmode=archive --ws --ws.addr=ethereumgo --ws.port=8546 --ws.origins=connector
+    image: trufflesuite/ganache-cli
+    ports:
+      - "8545:8545"
+    command:
+      -p=8545 -h=0.0.0.0 -m="piece effort bind that embrace enrich remind powder sudden patient legend group"
     volumes:
       - ${BLOCKCHAIN_PATH}/ethereumgo:/root/.ethereum
 
@@ -12,6 +21,11 @@ services:
       COIN: ETHTESTNET
       STAGE: ${STAGE}
       PORT: ${PORT}
+    restart: on-failure
+    depends_on:
+      - ethereumgo
+    links: 
+      - ethereumgo
     image: connector
 
   nginx:

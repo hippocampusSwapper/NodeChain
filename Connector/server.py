@@ -74,6 +74,7 @@ async def websocketServerHandler(request):
                     
                 else:
                     payload = wsutils.webSocketMethods[reqParsed[rpcutils.METHOD]](ws, reqParsed[rpcutils.ID], reqParsed[rpcutils.PARAMS])
+                    print('Message:', payload)
                     await ws.websocket.send_str(
                         json.dumps(
                             rpcutils.generateRPCResultResponse(

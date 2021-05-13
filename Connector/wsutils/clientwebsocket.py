@@ -17,6 +17,7 @@ class ClientWebSocket(ClientSession):
 
     async def send(self, message):
         """Send a message to the WebSocket."""
+        print("I'm going to send:", message)
         assert self.websocket is not None, "You must connect first!"
         await self.websocket.send_json(message)
         print("Sent:", message)

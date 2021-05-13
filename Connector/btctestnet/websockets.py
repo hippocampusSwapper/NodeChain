@@ -20,7 +20,10 @@ def bitcoinWS():
 
 async def bitcoinCallback(request):
 
+    print("New subscription callback")
+    
     if request.remote != socket.gethostbyname(ELECTRUM_NAME):
+        print("Unknow request.remote")
         return
 
     requestBody = await request.read()
