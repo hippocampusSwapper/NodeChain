@@ -27,14 +27,14 @@ def postMethod(function):
 
             return web.Response(
                 text=json.dumps(response),
-                content_type=rpcutils.JSON_CONTENT_TYPE
+                content_type=rpcutils.JSON_CONTENT_TYPE,
             )
 
         except errorhandler.Error as e:
             return web.Response(
                 text=json.dumps(e.jsonEncode()),
                 content_type=rpcutils.JSON_CONTENT_TYPE,
-                status=e.code
+                status=e.code,
             )
 
     app = WebApp()
@@ -62,14 +62,14 @@ def getMethod(function):
 
             return web.Response(
                 text=json.dumps(response),
-                content_type=rpcutils.JSON_CONTENT_TYPE
+                content_type=rpcutils.JSON_CONTENT_TYPE,
             )
 
         except errorhandler.Error as e:
             return web.Response(
                 text=json.dumps(e.jsonEncode()),
                 content_type=rpcutils.JSON_CONTENT_TYPE,
-                status=e.code
+                status=e.code,
             )
 
     app = WebApp()
